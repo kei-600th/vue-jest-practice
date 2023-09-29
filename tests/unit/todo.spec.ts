@@ -4,6 +4,12 @@ import * as api from "@/apis/TodoApi";
 import { RouterLink } from "vue-router";
 import router from "@/router";
 
+async function mountWithFlushPromise(component: any) {
+  const wrapper = mount(component, { global: { plugins: [router] } });
+  await flushPromises();
+  return wrapper;
+}
+
 describe("TodoList.vue", () => {
   it("should show todo items", async () => {
     //given
@@ -12,8 +18,7 @@ describe("TodoList.vue", () => {
       { id: 2, name: "todo item2" },
     ]);
     //when
-    const wrapper = mount(TodoList);
-    await flushPromises();
+    const wrapper = await mountWithFlushPromise(TodoList);
     //then;
     expect(wrapper.text()).toMatch("todo item");
     expect(wrapper.text()).toMatch("todo item2");
@@ -25,11 +30,10 @@ describe("TodoList.vue", () => {
       { id: 2, name: "todo item2" },
     ]);
     //when
-    const wrapper = mount(TodoList, { global: { plugins: [router] } });
-    await flushPromises();
-    const link = await wrapper.findAllComponents(RouterLink);
+    const wrapper = await mountWithFlushPromise(TodoList);
+    const links = await wrapper.findAllComponents(RouterLink);
     //then
-    expect(link[0].props().to.params.id).toBe(1);
-    expect(link[1].props().to.params.id).toBe(2);
+    expect(links[0].props().to.params.id).toBe(1);
+    expect(links[1].props().to.params.id).toBe(2);
   });
 });
