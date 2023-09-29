@@ -30,4 +30,11 @@ describe("TodoList.vue", () => {
     expect(links[0].props().to.params.id).toBe(1);
     expect(links[1].props().to.params.id).toBe(2);
   });
+  it("should has link to Detail page", async () => {
+    //given
+    mockTodoListApi();
+    //when
+    const wrapper = await mountWithFlushPromise(TodoList);
+    wrapper.find("input").setValue("clean room");
+  });
 });

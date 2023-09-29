@@ -1,6 +1,7 @@
 <template>
   <div>
     <div>
+      <input name="searchWord" v-model="searchWord" />
       <router-link
         :to="{ name: 'Todo', params: { id: todo.id } }"
         v-for="todo in todoList"
@@ -18,6 +19,7 @@ export default {
   data() {
     return {
       todoList: [],
+      searchWord: "",
     };
   },
   async created() {
