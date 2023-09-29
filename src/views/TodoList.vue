@@ -4,7 +4,7 @@
       <input name="searchWord" v-model="searchWord" />
       <router-link
         :to="{ name: 'Todo', params: { id: todo.id } }"
-        v-for="todo in todoList"
+        v-for="todo in searchedTodoList"
         :key="todo.id"
       >
         <p>{{ todo.name }}</p>
@@ -24,6 +24,13 @@ export default {
   },
   async created() {
     this.todoList = await getTodoList();
+  },
+  computed: {
+    searchedTodoList() {
+      return this.todoList.filter((todo) =>
+        todo.name.includes(this.searchWord)
+      );
+    },
   },
 };
 </script>

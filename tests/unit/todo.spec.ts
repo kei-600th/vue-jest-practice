@@ -7,6 +7,7 @@ function mockTodoListApi() {
   jest.spyOn(api, "getTodoList").mockResolvedValueOnce([
     { id: 1, name: "todo item" },
     { id: 2, name: "todo item2" },
+    { id: 3, name: "clean room" },
   ]);
 }
 
@@ -30,11 +31,14 @@ describe("TodoList.vue", () => {
     expect(links[0].props().to.params.id).toBe(1);
     expect(links[1].props().to.params.id).toBe(2);
   });
-  it("should has link to Detail page", async () => {
+  it("search by todo name", async () => {
     //given
     mockTodoListApi();
     //when
     const wrapper = await mountWithFlushPromise(TodoList);
-    wrapper.find("input").setValue("clean room");
+    await wrapper.find("input").setValue("clean room");
+    //then
+    expect(wrapper.text()).toMatch("clean room");
+    expect(wrapper.text()).not.toMatch("todo item");
   });
 });
