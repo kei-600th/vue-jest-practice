@@ -5,14 +5,15 @@
 </template>
 
 <script>
+import { getTodoList } from "@/apis/TodoApi";
 export default {
   data() {
     return {
-      todoList: [
-        { id: 1, name: "todo item" },
-        { id: 2, name: "todo item2" },
-      ],
+      todoList: [],
     };
+  },
+  created() {
+    this.todoList = getTodoList();
   },
 };
 </script>
