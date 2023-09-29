@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import TodoList from "../views/TodoList.vue";
+import TodoItem from "../views/TodoItem.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -10,7 +11,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/todo/:id",
     name: "Todo",
-    component: TodoList,
+    component: TodoItem,
   },
   {
     path: "/about",
