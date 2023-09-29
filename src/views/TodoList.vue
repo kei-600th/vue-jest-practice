@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p v-for="todo in todoList" :key="todo">{{ todo }}</p>
+    <p v-for="todo in todoList" :key="todo.id">{{ todo.name }}</p>
   </div>
 </template>
 
@@ -8,10 +8,12 @@
 export default {
   data() {
     return {
-      todoList: ["todo item", "todo item2"],
+      todoList: [
+        { id: 1, name: "todo item" },
+        { id: 2, name: "todo item2" },
+      ],
     };
   },
 };
 </script>
-
 <style scoped></style>
