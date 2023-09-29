@@ -8,6 +8,11 @@ const routes: Array<RouteRecordRaw> = [
     component: TodoList,
   },
   {
+    path: "/todo/:id",
+    name: "Todo",
+    component: TodoList,
+  },
+  {
     path: "/about",
     name: "about",
     // route level code-splitting

@@ -18,7 +18,7 @@ describe("TodoList.vue", () => {
     expect(wrapper.text()).toMatch("todo item");
     expect(wrapper.text()).toMatch("todo item2");
   });
-  it("should show todo items", async () => {
+  it("should has link to Detail page", async () => {
     //given
     jest.spyOn(api, "getTodoList").mockResolvedValueOnce([
       { id: 1, name: "todo item" },
@@ -27,8 +27,9 @@ describe("TodoList.vue", () => {
     //when
     const wrapper = mount(TodoList, { global: { plugins: [router] } });
     await flushPromises();
-    const link = await wrapper.findComponent(RouterLink);
+    const link = await wrapper.findAllComponents(RouterLink);
     //then
-    expect(link.exists()).toBe(true);
+    expect(link[0].props().to.params.id).toBe(1);
+    expect(link[1].props().to.params.id).toBe(2);
   });
 });

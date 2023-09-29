@@ -1,7 +1,15 @@
 <template>
-  <router-link to="/">
-    <p v-for="todo in todoList" :key="todo.id">{{ todo.name }}</p>
-  </router-link>
+  <div>
+    <div>
+      <router-link
+        :to="{ name: 'Todo', params: { id: todo.id } }"
+        v-for="todo in todoList"
+        :key="todo.id"
+      >
+        <p>{{ todo.name }}</p>
+      </router-link>
+    </div>
+  </div>
 </template>
 
 <script>
