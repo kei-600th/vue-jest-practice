@@ -1,22 +1,19 @@
-import { flushPromises, mount } from "@vue/test-utils";
 import TodoList from "@/views/TodoList.vue";
 import * as api from "@/apis/TodoApi";
 import { RouterLink } from "vue-router";
-import router from "@/router";
+import { mountWithFlushPromise } from "./helper";
 
-async function mountWithFlushPromise(component: any) {
-  const wrapper = mount(component, { global: { plugins: [router] } });
-  await flushPromises();
-  return wrapper;
+function mockTodoListApi() {
+  jest.spyOn(api, "getTodoList").mockResolvedValueOnce([
+    { id: 1, name: "todo item" },
+    { id: 2, name: "todo item2" },
+  ]);
 }
 
 describe("TodoList.vue", () => {
   it("should show todo items", async () => {
     //given
-    jest.spyOn(api, "getTodoList").mockResolvedValueOnce([
-      { id: 1, name: "todo item" },
-      { id: 2, name: "todo item2" },
-    ]);
+    mockTodoListApi();
     //when
     const wrapper = await mountWithFlushPromise(TodoList);
     //then;
@@ -25,10 +22,7 @@ describe("TodoList.vue", () => {
   });
   it("should has link to Detail page", async () => {
     //given
-    jest.spyOn(api, "getTodoList").mockResolvedValueOnce([
-      { id: 1, name: "todo item" },
-      { id: 2, name: "todo item2" },
-    ]);
+    mockTodoListApi();
     //when
     const wrapper = await mountWithFlushPromise(TodoList);
     const links = await wrapper.findAllComponents(RouterLink);
