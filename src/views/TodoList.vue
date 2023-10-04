@@ -2,13 +2,12 @@
   <div>
     <div>
       <input name="searchWord" v-model="searchWord" />
-      <router-link
-        :to="{ name: 'Todo', params: { id: todo.id } }"
-        v-for="todo in searchedTodoList"
-        :key="todo.id"
-      >
-        <p>{{ todo.name }}</p>
-      </router-link>
+      <div v-for="todo in searchedTodoList" :key="todo.id">
+        <input type="checkbox" />
+        <router-link :to="{ name: 'Todo', params: { id: todo.id } }">
+          <p>{{ todo.name }}</p>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
