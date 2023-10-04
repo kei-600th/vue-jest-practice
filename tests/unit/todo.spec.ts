@@ -55,8 +55,10 @@ describe("TodoList.vue", () => {
     //given
     mockTodoListApi();
     // //when
-    // const wrapper = await mountWithFlushPromise(TodoList);
-    // await wrapper.find('input').setValue('clean room')
+    const wrapper = await mountWithFlushPromise(TodoList);
+    // eslint-disable-next-line quotes
+    const checkbox = await wrapper.find('input[type="checkbox"]');
+    await checkbox.trigger("click");
     // //then
     // expect(wrapper.text()).toMatch("clean room");
     // expect(wrapper.text()).not.toMatch("todo item");
