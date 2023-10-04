@@ -3,10 +3,11 @@ import * as api from "@/apis/TodoApi";
 import { RouterLink } from "vue-router";
 import { mountWithFlushPromise } from "./helper";
 
-function generateTodo(name: string) {
+function generateTodo(name: string, status?: boolean) {
   return {
     id: Date.now(),
     name: name,
+    status: status || false,
   };
 }
 
@@ -49,5 +50,15 @@ describe("TodoList.vue", () => {
     //then
     expect(wrapper.text()).toMatch("clean room");
     expect(wrapper.text()).not.toMatch("todo item");
+  });
+  it("update status", async () => {
+    //given
+    mockTodoListApi();
+    // //when
+    // const wrapper = await mountWithFlushPromise(TodoList);
+    // await wrapper.find('input').setValue('clean room')
+    // //then
+    // expect(wrapper.text()).toMatch("clean room");
+    // expect(wrapper.text()).not.toMatch("todo item");
   });
 });
