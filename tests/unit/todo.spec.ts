@@ -3,11 +3,18 @@ import * as api from "@/apis/TodoApi";
 import { RouterLink } from "vue-router";
 import { mountWithFlushPromise } from "./helper";
 
+function generateTodo(name: string) {
+  return {
+    id: Date.now(),
+    name: name,
+  };
+}
+
 function mockTodoListApi() {
   const value = [
-    { id: Date.now(), name: "todo item" },
-    { id: Date.now(), name: "todo item2" },
-    { id: Date.now(), name: "clean room" },
+    generateTodo("todo item"),
+    generateTodo("todo item2"),
+    generateTodo("clean room"),
   ];
   jest.spyOn(api, "getTodoList").mockResolvedValueOnce(value);
   return value;
