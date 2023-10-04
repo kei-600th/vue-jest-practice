@@ -11,13 +11,13 @@ function generateTodo(name: string) {
 }
 
 function mockTodoListApi() {
-  const value = [
+  const data = [
     generateTodo("todo item"),
     generateTodo("todo item2"),
     generateTodo("clean room"),
   ];
-  jest.spyOn(api, "getTodoList").mockResolvedValueOnce(value);
-  return value;
+  jest.spyOn(api, "getTodoList").mockResolvedValueOnce(data);
+  return data;
 }
 
 describe("TodoList.vue", () => {
