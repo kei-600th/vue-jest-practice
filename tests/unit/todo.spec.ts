@@ -4,11 +4,13 @@ import { RouterLink } from "vue-router";
 import { mountWithFlushPromise } from "./helper";
 
 function mockTodoListApi() {
-  jest.spyOn(api, "getTodoList").mockResolvedValueOnce([
-    { id: 1, name: "todo item" },
-    { id: 2, name: "todo item2" },
-    { id: 3, name: "clean room" },
-  ]);
+  const value = [
+    { id: Date.now(), name: "todo item" },
+    { id: Date.now(), name: "todo item2" },
+    { id: Date.now(), name: "clean room" },
+  ];
+  jest.spyOn(api, "getTodoList").mockResolvedValueOnce(value);
+  return value;
 }
 
 describe("TodoList.vue", () => {
@@ -23,13 +25,13 @@ describe("TodoList.vue", () => {
   });
   it("should has link to Detail page", async () => {
     //given
-    mockTodoListApi();
+    const mockData = mockTodoListApi();
     //when
     const wrapper = await mountWithFlushPromise(TodoList);
     const links = await wrapper.findAllComponents(RouterLink);
     //then
-    expect(links[0].props().to.params.id).toBe(1);
-    expect(links[1].props().to.params.id).toBe(2);
+    expect(links[0].props().to.params.id).toBe(mockData[0].id);
+    expect(links[1].props().to.params.id).toBe(mockData[1].id);
   });
   it("search by todo name", async () => {
     //given
