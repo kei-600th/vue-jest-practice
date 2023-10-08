@@ -54,13 +54,15 @@ describe("TodoList.vue", () => {
   it("update status", async () => {
     //given
     mockTodoListApi();
+    const mockUpdateTodoStatusAPi = jest.spyOn(api, "updateTodoStatus");
     // //when
     const wrapper = await mountWithFlushPromise(TodoList);
     // eslint-disable-next-line quotes
     const checkbox = await wrapper.find('input[type="checkbox"]');
     await checkbox.trigger("click");
-    // //then
-    // expect(wrapper.text()).toMatch("clean room");
+    // then
+    const elem = checkbox.element as HTMLInputElement;
+    expect(elem.checked).toBe(true);
     // expect(wrapper.text()).not.toMatch("todo item");
   });
 });

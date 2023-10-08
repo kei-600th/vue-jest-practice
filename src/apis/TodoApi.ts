@@ -5,3 +5,5 @@ export async function getTodoList() {
     { id: 2, name: "todo item2" },
   ];
 }
+
+export async function updateTodoStatus() {}
