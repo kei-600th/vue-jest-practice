@@ -63,6 +63,6 @@ describe("TodoList.vue", () => {
     // then
     const elem = checkbox.element as HTMLInputElement;
     expect(elem.checked).toBe(true);
-    // expect(wrapper.text()).not.toMatch("todo item");
+    expect(mockUpdateTodoStatusAPi).toHaveBeenCalled();
   });
 });
